@@ -1,0 +1,164 @@
+package teama;
+
+import java.awt.BorderLayout;
+import java.awt.Checkbox;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.util.List;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.Observable;
+import java.util.*;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.SpinnerModel;
+
+import com.github.lgooddatepicker.components.DatePicker;
+import com.github.lgooddatepicker.components.DatePickerSettings;
+import com.github.lgooddatepicker.components.DateTimePicker;
+import com.github.lgooddatepicker.components.TimePicker;
+import com.github.lgooddatepicker.components.TimePickerSettings;
+import com.github.lgooddatepicker.components.TimePickerSettings.TimeArea;
+import com.github.lgooddatepicker.zinternaltools.InternalUtilities;
+
+
+import java.text.SimpleDateFormat;
+
+
+public class Search_Panel extends Observable{
+	
+	public boolean Reset = false;
+	
+	public JTextField stateField;
+	public JTextField cityField;
+	public JCheckBox cb[] = {new JCheckBox("Extreme"), new JCheckBox("Severe"), new JCheckBox("Moderate"), new JCheckBox("Minor"), new JCheckBox("Unknown"), new JCheckBox("Observed"), new JCheckBox("Likely"), new JCheckBox("Possible"), new JCheckBox("Unlikely"), new JCheckBox("Unknown")};
+	public DateTimePicker datetimepick1;
+	public String time;
+	//public DateTimePicker datetimepick2;
+	
+	
+	private boolean windowOpen;
+	private String seconds;
+	
+	public void onSearch(){
+		//windowOpen = false;
+		setChanged();
+		notifyObservers(this);
+	}
+	
+	private void onClose(){
+		
+		windowOpen = false;
+	}
+	
+	public void create_frame(){
+		
+		//List<Checkbox> cb = new ArrayList<Checkbox>(); //create the list of checkboxes
+
+		
+		JFrame frame = new JFrame("Configuration Panel");
+		frame.setVisible(true);
+		frame.setSize(300, 500);
+		
+		JPanel control = new JPanel();
+		
+		control.setLayout(new BoxLayout(control, BoxLayout.Y_AXIS));
+		control.setAlignmentY(Component.TOP_ALIGNMENT);
+
+		datetimepick1 = new DateTimePicker();
+		//datetimepick2 = new DateTimePicker();
+		
+		JLabel time_label = new JLabel("Pick time frame for reports");
+		
+		control.add(time_label);
+		control.add(datetimepick1);
+		//control.add(datetimepick2);
+		time_label.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		JLabel state = new JLabel("State");
+		stateField = new JTextField();
+		
+		control.add(state);
+		control.add(stateField);
+		state.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		JLabel city = new JLabel("City");
+		cityField = new JTextField();
+		
+		control.add(city);
+		control.add(cityField);
+		city.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		JLabel severity = new JLabel("Severity");
+		control.add(severity);
+		severity.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		
+		for(int i = 0; i < 5; i++){
+			control.add(cb[i]);
+			cb[i].setAlignmentX(Component.CENTER_ALIGNMENT);
+		}
+
+		JLabel warning = new JLabel("Possibility");
+		control.add(warning);
+		warning.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+		for(int i = 5; i < 10; i++){
+			control.add(cb[i]);
+			cb[i].setAlignmentX(Component.CENTER_ALIGNMENT);
+
+		}
+		
+		JButton button1 = new JButton("Submit");
+		JButton button2 = new JButton("Cancel");
+		
+		control.add(button1);
+		button1.setAlignmentX(Component.CENTER_ALIGNMENT);
+		control.add(button2);
+		button2.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		button2.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event){
+				onClose();
+				frame.dispose();
+				frame.setVisible(false);
+			}
+		});
+		
+		button1.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event){
+				
+				onSearch();
+				time = datetimepick1.toString();
+				//System.out.println(stateField.);
+				seconds = stateField.getText();
+				//seconds = datetimepick1.g
+				System.out.println(seconds);
+				frame.dispose();
+				frame.setVisible(false);
+			}
+		});
+		
+		
+		frame.add(control); //add the panel to the frame
+			
+		
+		
+		windowOpen = true;
+	}
+	
+	
+}

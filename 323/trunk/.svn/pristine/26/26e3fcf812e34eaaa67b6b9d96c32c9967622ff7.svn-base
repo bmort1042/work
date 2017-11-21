@@ -1,0 +1,130 @@
+package teama;
+
+import java.awt.BorderLayout;
+import java.awt.Window;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.Vector;
+
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
+
+public class Configuration_Panel implements Observer{
+	
+	public JTable table = null;
+	
+	 private String columnNames[] = {"State Feed", "Active", "Refresh Rate"};
+	 @SuppressWarnings("rawtypes")
+	Vector states = new Vector();
+	 @SuppressWarnings("rawtypes")
+	Vector rates = new Vector();
+	@SuppressWarnings("rawtypes")
+	Vector active = new Vector();
+	String[][] rowList;
+	
+	private int index = 0;
+	private boolean repeat;
+	 
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		// TODO Auto-generated method stub
+		
+		if(arg0 instanceof RSS_Panel){
+			
+			repeat = false;
+			
+			RSS_Panel rss_info = (RSS_Panel)arg1;
+
+			//Cause only the best cowboy code!!!!!!!
+			for(int i = 0; i < states.size(); i++){
+				if(states.get(i).equals(rss_info.state)){
+					
+					if(rss_info.ref_rate != null){
+						rates.set(i, rss_info.ref_rate);
+					}
+					
+					if(rss_info.addState){
+						active.set(i, "On");
+						
+					}else{
+						active.set(i, "Off");
+					}
+					
+					repeat = true;
+					//System.out.println(repeat);
+				}
+
+			}
+			
+			if(!repeat){
+				
+				states.add(new String(rss_info.state));
+				
+				if(rss_info.ref_rate != null){
+					rates.add(new String(rss_info.ref_rate));
+				}else{
+					rates.addElement(new String("1hr"));
+				}
+
+				if(rss_info.addState){
+					active.add(new String("On"));
+					//rowList.add("On");
+					
+				}else{
+					active.add(new String("Off"));
+					//rowList.add("Off");
+				}
+				
+				System.out.println(index);
+				
+				index++;
+
+			}
+			
+			create_frame();	
+		}
+				
+	}
+		
+	
+	public void create_frame(){
+		
+		JFrame frame = new JFrame("Feed Information");
+
+
+		
+		rowList = new String[index][3];
+		
+		for(int i = 0; i < states.size(); i++){
+			rowList[i][0] = (String) states.get(i);
+			rowList[i][1] = (String) rates.get(i);
+			rowList[i][2] = (String) active.get(i);
+		}
+			
+		System.out.println(index);
+		
+		table = new JTable(rowList, columnNames);
+		
+		
+		frame.add(new JScrollPane(table));
+
+
+		table.setVisible(true);
+		
+		frame.pack();
+		frame.setVisible(true);
+		
+		
+	}
+	
+}

@@ -1,0 +1,156 @@
+package views;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import java.awt.GridLayout;
+import javax.swing.JCheckBox;
+import java.awt.BorderLayout;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.LayoutStyle.ComponentPlacement;
+
+import gov.nasa.worldwind.BasicModel;
+import gov.nasa.worldwind.awt.WorldWindowGLCanvas;
+import gov.nasa.worldwindx.examples.SimplestPossibleExample;
+
+import javax.swing.*;
+
+import java.awt.*;
+
+
+
+public class GUI extends JFrame{
+
+	private JFrame frame;
+
+	/**
+	 * Launch the application.
+	 */
+
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					GUI window = new GUI();
+					window.frame.setVisible(true);
+					 JFrame frame = new GUI();
+		             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		             frame.pack();
+		             frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public GUI() {
+		initialize();
+		WorldWindowGLCanvas wwd = new WorldWindowGLCanvas();
+        wwd.setPreferredSize(new java.awt.Dimension(1000, 800));
+        this.getContentPane().add(wwd, java.awt.BorderLayout.CENTER);
+        wwd.setModel(new BasicModel());
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(600, 600, 1500, 9000);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JComboBox comboBox = new JComboBox();
+		
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setToolTipText("");
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Select a State", "Washington", "Oregon", "California", "Nevada", "Canada"}));
+		
+		JLabel Categories = new JLabel("Categories");
+		Categories.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		JLabel Alert = new JLabel("Type of Alert");
+		Alert.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		JCheckBox chckbxNewCheckBox = new JCheckBox("Winter Warning");
+		
+		JCheckBox chckbxWindWarning = new JCheckBox("Wind Warning");
+		
+		JCheckBox chckbxHeatAdvisory = new JCheckBox("Heat Advisory");
+		
+		JCheckBox chckbxBlizzard = new JCheckBox("Blizzard");
+		
+		JCheckBox chckbxEndOfThe = new JCheckBox("End of the World");
+		
+		JComboBox comboBox_2 = new JComboBox();
+		
+		JLabel lblNewLabel = new JLabel("Select Time");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+									.addComponent(Categories, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(comboBox_1, 0, 240, Short.MAX_VALUE))
+								.addComponent(Alert, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+							.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+								.addContainerGap()
+								.addComponent(comboBox_2, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+							.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+								.addGap(70)
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+									.addComponent(chckbxWindWarning, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
+									.addComponent(chckbxNewCheckBox)
+									.addComponent(chckbxHeatAdvisory, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
+									.addComponent(chckbxBlizzard, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
+									.addComponent(chckbxEndOfThe, GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)))))
+					.addContainerGap(1248, Short.MAX_VALUE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGap(1287))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(43)
+					.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(29)
+					.addComponent(Categories, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(Alert, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(chckbxNewCheckBox)
+					.addGap(18)
+					.addComponent(chckbxWindWarning)
+					.addGap(18)
+					.addComponent(chckbxHeatAdvisory)
+					.addGap(18)
+					.addComponent(chckbxBlizzard)
+					.addGap(18)
+					.addComponent(chckbxEndOfThe)
+					.addGap(86)
+					.addComponent(lblNewLabel)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(519, Short.MAX_VALUE))
+		);
+		
+		frame.getContentPane().setLayout(groupLayout);
+	}
+}
