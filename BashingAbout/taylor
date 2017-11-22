@@ -1,0 +1,16 @@
+#! /bin/sh
+
+screenshot_dir='~/Desktop';
+
+while true;
+do
+	echo "Please enter the command you would like to use";
+
+	read command;
+
+	eval $command;
+
+	(import -window root $(date +%M_%k_%d_%m_%Y|sed -e 's/^ *//').png) &
+
+	echo "We are done!";
+done
